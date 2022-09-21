@@ -1,0 +1,187 @@
+
+QNO:1
+
+mysql> create database STUDENT;
+ERROR 1007 (HY000): Can't create database 'student'; database exists
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| data               |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+6 rows in set (0.01 sec)
+
+mysql> use student;
+Database changed
+mysql> create table student(Regno int(3),Name char(15),gender char(1),Dob int(10),mobileno int(10),city char(10
+    -> ));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> desc student;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| Regno    | int(3)   | YES  |     | NULL    |       |
+| Name     | char(15) | YES  |     | NULL    |       |
+| gender   | char(1)  | YES  |     | NULL    |       |
+| Dob      | int(10)  | YES  |     | NULL    |       |
+| mobileno | int(10)  | YES  |     | NULL    |       |
+| city     | char(10) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+QNO:2
+
+mysql> create database faculty;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| data               |
+| faculty            |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use faculty;
+Database changed
+mysql> create table faculty(Facno int(3),facName char(15),gender char(1),Dob int(10),mobileno int(10),Doj int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc faculty;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| Facno    | int(3)   | YES  |     | NULL    |       |
+| facName  | char(15) | YES  |     | NULL    |       |
+| gender   | char(1)  | YES  |     | NULL    |       |
+| Dob      | int(10)  | YES  |     | NULL    |       |
+| mobileno | int(10)  | YES  |     | NULL    |       |
+| Doj      | int(10)  | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+QNO:3
+
+mysql> create database department;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| data               |
+| department         |
+| faculty            |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+8 rows in set (0.00 sec)
+
+mysql> use department;
+Database changed
+mysql> create table department(deptno int(10),deptname char(10),depthead char(10));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> desc department;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| deptno   | int(10)  | YES  |     | NULL    |       |
+| deptname | char(10) | YES  |     | NULL    |       |
+| depthead | char(10) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+QNO:4
+
+mysql> create database course;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| course             |
+| data               |
+| department         |
+| faculty            |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use course;
+Database changed
+mysql> create table course(courseno int(3),coursedesc char(15),coursetype char(1),semno int(10),hallno int(10),facno int(10));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc course;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| courseno   | int(3)   | YES  |     | NULL    |       |
+| coursedesc | char(15) | YES  |     | NULL    |       |
+| coursetype | char(1)  | YES  |     | NULL    |       |
+| semno      | int(10)  | YES  |     | NULL    |       |
+| hallno     | int(10)  | YES  |     | NULL    |       |
+| facno      | int(10)  | YES  |     | NULL    |       |
++------------+----------+------+-----+---------+-------+
+6 rows in set (0.01 sec)
+
+QNO:5
+
+mysql> create database faculty;
+ERROR 1007 (HY000): Can't create database 'faculty'; database exists
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| course             |
+| data               |
+| department         |
+| faculty            |
+| mysql              |
+| performance_schema |
+| student            |
+| test               |
++--------------------+
+9 rows in set (0.00 sec)
+
+mysql> use faculty;
+Database changed
+mysql> alter table faculty add dept char(10);
+Query OK, 0 rows affected (0.03 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc faculty;
++----------+----------+------+-----+---------+-------+
+| Field    | Type     | Null | Key | Default | Extra |
++----------+----------+------+-----+---------+-------+
+| Facno    | int(3)   | YES  |     | NULL    |       |
+| facName  | char(15) | YES  |     | NULL    |       |
+| gender   | char(1)  | YES  |     | NULL    |       |
+| Dob      | int(10)  | YES  |     | NULL    |       |
+| mobileno | int(10)  | YES  |     | NULL    |       |
+| Doj      | int(10)  | YES  |     | NULL    |       |
+| dept     | char(10) | YES  |     | NULL    |       |
++----------+----------+------+-----+---------+-------+
+7 rows in set (0.01 sec)

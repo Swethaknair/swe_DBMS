@@ -1,0 +1,422 @@
+Enter password: ******
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 40
+Server version: 5.5.62 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2018, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use students;
+Database changed
+mysql> use datas;
+Database changed
+mysql> show tables;
++-----------------+
+| Tables_in_datas |
++-----------------+
+| department      |
+| departments     |
++-----------------+
+2 rows in set (0.00 sec)
+
+mysql> desc department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| DeptNo   | int(15)     | YES  |     | NULL    |       |
+| DeptName | varchar(30) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+2 rows in set (0.12 sec)
+
+mysql> create table Employee(SSN varchar(10), Fname varchar(20), Lname varchar(30), Address varchar(40),
+    -> Sex char(1), Salary number(38), Superssn varchar(50), Dno number(40)
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'number(38), Superssn varchar(50), Dno number(40)
+)' at line 2
+mysql> create table Employee(SSN varchar(10), Fname varchar(20), Lname varchar(30), Address varchar(40),
+    -> Sex char(1), Salary int(38), Superssn varchar(50), Dno int(40)
+    -> );
+Query OK, 0 rows affected (0.29 sec)
+
+mysql> alter table departemt
+    -> add MGRSSN int(40);
+ERROR 1146 (42S02): Table 'datas.departemt' doesn't exist
+mysql> alter table department
+    -> add MGRSSN int(40);
+Query OK, 3 rows affected (0.32 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> alter table departemt
+    -> add MGR_START_DATE date;
+ERROR 1146 (42S02): Table 'datas.departemt' doesn't exist
+mysql> alter table department
+    -> add MGR_START_DATE date;
+Query OK, 3 rows affected (0.57 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> desc department;
++----------------+-------------+------+-----+---------+-------+
+| Field          | Type        | Null | Key | Default | Extra |
++----------------+-------------+------+-----+---------+-------+
+| DeptNo         | int(15)     | YES  |     | NULL    |       |
+| DeptName       | varchar(30) | YES  |     | NULL    |       |
+| MGRSSN         | int(40)     | YES  |     | NULL    |       |
+| MGR_START_DATE | date        | YES  |     | NULL    |       |
++----------------+-------------+------+-----+---------+-------+
+4 rows in set (0.07 sec)
+
+mysql>
+mysql> insert into department values(1, "Research", 3334445555, "1988.05.22");
+ERROR 1264 (22003): Out of range value for column 'MGRSSN' at row 1
+mysql> insert into department values(1, "Research", 333453, "1988.05.22");
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into department values(2, "Administration", 165426, "1995.01.01");
+Query OK, 1 row affected (0.09 sec)
+
+mysql> insert into department values(3, "Headquater", 165663, "1981.05.19");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from department;
++--------+----------------+--------+----------------+
+| DeptNo | DeptName       | MGRSSN | MGR_START_DATE |
++--------+----------------+--------+----------------+
+|      1 | John           |   NULL | NULL           |
+|      2 | Smitha         |   NULL | NULL           |
+|      3 | Williams       |   NULL | NULL           |
+|      1 | Research       | 333453 | 1988-05-22     |
+|      2 | Administration | 165426 | 1995-01-01     |
+|      3 | Headquater     | 165663 | 1981-05-19     |
++--------+----------------+--------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> delete from departmet where Deptname = john;
+ERROR 1146 (42S02): Table 'datas.departmet' doesn't exist
+mysql> delete from department where Deptname = 'john' ;
+Query OK, 1 row affected (0.08 sec)
+
+mysql> delete from department where Deptname = 'smitha' ;
+Query OK, 1 row affected (0.04 sec)
+
+mysql> delete from department where Deptname = 'williams' ;
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from department;
++--------+----------------+--------+----------------+
+| DeptNo | DeptName       | MGRSSN | MGR_START_DATE |
++--------+----------------+--------+----------------+
+|      1 | Research       | 333453 | 1988-05-22     |
+|      2 | Administration | 165426 | 1995-01-01     |
+|      3 | Headquater     | 165663 | 1981-05-19     |
++--------+----------------+--------+----------------+
+3 rows in set (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | varchar(10) | YES  |     | NULL    |       |
+| Fname    | varchar(20) | YES  |     | NULL    |       |
+| Lname    | varchar(30) | YES  |     | NULL    |       |
+| Address  | varchar(40) | YES  |     | NULL    |       |
+| Sex      | char(1)     | YES  |     | NULL    |       |
+| Salary   | int(38)     | YES  |     | NULL    |       |
+| Superssn | varchar(50) | YES  |     | NULL    |       |
+| Dno      | int(40)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+8 rows in set (0.07 sec)
+
+mysql> alter table employee
+    -> add BDate date;
+Query OK, 0 rows affected (0.25 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> insert into employee values("1234", "John", "Smith", "242 Fountain", "M", 15000, "6663", 1, "1995.01.09");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee values("1246", "Jack", "Son", "656 Mountain", "M", 16000, "65633", 2, "1995.12.08");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee values("1891", "John", "Son", "185 Castle", "M", 17000, "43453", 3, "1998.07.18");
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee values("1998", "Smitha", "Watson", "165 Spring", "F", 20000, "56659", 4, "1991.06.20");
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->
+    ->
+    -> * from employee;
++------+--------+--------+--------------+------+--------+----------+------+------------+
+| SSN  | Fname  | Lname  | Address      | Sex  | Salary | Superssn | Dno  | BDate      |
++------+--------+--------+--------------+------+--------+----------+------+------------+
+| 1234 | John   | Smith  | 242 Fountain | M    |  15000 | 6663     |    1 | 1995-01-09 |
+| 1246 | Jack   | Son    | 656 Mountain | M    |  16000 | 65633    |    2 | 1995-12-08 |
+| 1891 | John   | Son    | 185 Castle   | M    |  17000 | 43453    |    3 | 1998-07-18 |
+| 1998 | Smitha | Watson | 165 Spring   | F    |  20000 | 56659    |    4 | 1991-06-20 |
++------+--------+--------+--------------+------+--------+----------+------+------------+
+4 rows in set (0.00 sec)
+
+mysql> repeat ('John' , 3);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'repeat ('John' , 3)' at line 1
+mysql> select repeat ('john', 3);
++--------------------+
+| repeat ('john', 3) |
++--------------------+
+| johnjohnjohn       |
++--------------------+
+1 row in set (0.07 sec)
+
+mysql> alter table employee
+    -> alter sex char(1) not null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'char(1) not null' at line 2
+mysql> alter table employee
+    -> modify sex char(1) not null;
+Query OK, 4 rows affected (0.28 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | varchar(10) | YES  |     | NULL    |       |
+| Fname    | varchar(20) | YES  |     | NULL    |       |
+| Lname    | varchar(30) | YES  |     | NULL    |       |
+| Address  | varchar(40) | YES  |     | NULL    |       |
+| sex      | char(1)     | NO   |     | NULL    |       |
+| Salary   | int(38)     | YES  |     | NULL    |       |
+| Superssn | varchar(50) | YES  |     | NULL    |       |
+| Dno      | int(40)     | YES  |     | NULL    |       |
+| BDate    | date        | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.08 sec)
+
+mysql> alter table employee
+    -> add primary key(Dno);
+Query OK, 4 rows affected (0.43 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee
+    -> add unique(BDate);
+Query OK, 0 rows affected (0.22 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | varchar(10) | YES  |     | NULL    |       |
+| Fname    | varchar(20) | YES  |     | NULL    |       |
+| Lname    | varchar(30) | YES  |     | NULL    |       |
+| Address  | varchar(40) | YES  |     | NULL    |       |
+| sex      | char(1)     | NO   |     | NULL    |       |
+| Salary   | int(38)     | YES  |     | NULL    |       |
+| Superssn | varchar(50) | YES  |     | NULL    |       |
+| Dno      | int(40)     | NO   | PRI | 0       |       |
+| BDate    | date        | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.06 sec)
+
+mysql> alter table employee
+    -> add check (salary >= 10000);
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+| SSN  | Fname  | Lname  | Address      | sex | Salary | Superssn | Dno | BDate      |
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+| 1234 | John   | Smith  | 242 Fountain | M   |  15000 | 6663     |   1 | 1995-01-09 |
+| 1246 | Jack   | Son    | 656 Mountain | M   |  16000 | 65633    |   2 | 1995-12-08 |
+| 1891 | John   | Son    | 185 Castle   | M   |  17000 | 43453    |   3 | 1998-07-18 |
+| 1998 | Smitha | Watson | 165 Spring   | F   |  20000 | 56659    |   4 | 1991-06-20 |
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+4 rows in set (0.00 sec)
+
+mysql> alter table employee
+    -> add check (salary >= 17000);
+Query OK, 0 rows affected (0.12 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+| SSN  | Fname  | Lname  | Address      | sex | Salary | Superssn | Dno | BDate      |
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+| 1234 | John   | Smith  | 242 Fountain | M   |  15000 | 6663     |   1 | 1995-01-09 |
+| 1246 | Jack   | Son    | 656 Mountain | M   |  16000 | 65633    |   2 | 1995-12-08 |
+| 1891 | John   | Son    | 185 Castle   | M   |  17000 | 43453    |   3 | 1998-07-18 |
+| 1998 | Smitha | Watson | 165 Spring   | F   |  20000 | 56659    |   4 | 1991-06-20 |
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+4 rows in set (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | varchar(10) | YES  |     | NULL    |       |
+| Fname    | varchar(20) | YES  |     | NULL    |       |
+| Lname    | varchar(30) | YES  |     | NULL    |       |
+| Address  | varchar(40) | YES  |     | NULL    |       |
+| sex      | char(1)     | NO   |     | NULL    |       |
+| Salary   | int(38)     | YES  |     | NULL    |       |
+| Superssn | varchar(50) | YES  |     | NULL    |       |
+| Dno      | int(40)     | NO   | PRI | 0       |       |
+| BDate    | date        | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.03 sec)
+
+mysql> select check from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'check from employee' at line 1
+mysql> update employee
+    -> set ssn = "1534" where Dno = 1;
+Query OK, 1 row affected (0.09 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+| SSN  | Fname  | Lname  | Address      | sex | Salary | Superssn | Dno | BDate      |
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+| 1534 | John   | Smith  | 242 Fountain | M   |  15000 | 6663     |   1 | 1995-01-09 |
+| 1246 | Jack   | Son    | 656 Mountain | M   |  16000 | 65633    |   2 | 1995-12-08 |
+| 1891 | John   | Son    | 185 Castle   | M   |  17000 | 43453    |   3 | 1998-07-18 |
+| 1998 | Smitha | Watson | 165 Spring   | F   |  20000 | 56659    |   4 | 1991-06-20 |
++------+--------+--------+--------------+-----+--------+----------+-----+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where Fname= "Jack";
++------+-------+-------+--------------+-----+--------+----------+-----+------------+
+| SSN  | Fname | Lname | Address      | sex | Salary | Superssn | Dno | BDate      |
++------+-------+-------+--------------+-----+--------+----------+-----+------------+
+| 1246 | Jack  | Son   | 656 Mountain | M   |  16000 | 65633    |   2 | 1995-12-08 |
++------+-------+-------+--------------+-----+--------+----------+-----+------------+
+1 row in set (0.00 sec)
+
+mysql> select * from employee where salary between 17000 and 20000;
++------+--------+--------+------------+-----+--------+----------+-----+------------+
+| SSN  | Fname  | Lname  | Address    | sex | Salary | Superssn | Dno | BDate      |
++------+--------+--------+------------+-----+--------+----------+-----+------------+
+| 1891 | John   | Son    | 185 Castle | M   |  17000 | 43453    |   3 | 1998-07-18 |
+| 1998 | Smitha | Watson | 165 Spring | F   |  20000 | 56659    |   4 | 1991-06-20 |
++------+--------+--------+------------+-----+--------+----------+-----+------------+
+2 rows in set (0.00 sec)
+
+mysql> select * from employee where salary in 17000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '17000' at line 1
+mysql> select * from employee where salary in (17000);
++------+-------+-------+------------+-----+--------+----------+-----+------------+
+| SSN  | Fname | Lname | Address    | sex | Salary | Superssn | Dno | BDate      |
++------+-------+-------+------------+-----+--------+----------+-----+------------+
+| 1891 | John  | Son   | 185 Castle | M   |  17000 | 43453    |   3 | 1998-07-18 |
++------+-------+-------+------------+-----+--------+----------+-----+------------+
+1 row in set (0.00 sec)
+
+mysql> select from avg(17000) from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from avg(17000) from employee' at line 1
+mysql> select avg(17000) from employee;
++------------+
+| avg(17000) |
++------------+
+| 17000.0000 |
++------------+
+1 row in set (0.04 sec)
+
+mysql> select min(salary) from employee;
++-------------+
+| min(salary) |
++-------------+
+|       15000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select max(salary) from employee;
++-------------+
+| max(salary) |
++-------------+
+|       20000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select Fname, Sex
+    -> from employee group by Fname;
++--------+-----+
+| Fname  | Sex |
++--------+-----+
+| Jack   | M   |
+| John   | M   |
+| Smitha | F   |
++--------+-----+
+3 rows in set (0.04 sec)
+
+mysql> select Fname, Sex
+    -> from employee group by Lname;
++--------+-----+
+| Fname  | Sex |
++--------+-----+
+| John   | M   |
+| Jack   | M   |
+| Smitha | F   |
++--------+-----+
+3 rows in set (0.00 sec)
+
+mysql> select Fname, salary from employee
+    -> group by salary having count(salary) > 15000;
+Empty set (0.00 sec)
+
+mysql> select Fname, salary from employee
+    -> group by salary having count(salary) >= 15000;
+Empty set (0.00 sec)
+
+mysql> select Fname, salary from employee
+    -> group by salary having count(salary)= 15000;
+Empty set (0.00 sec)
+
+mysql> select Dno, Lname from employee
+    -> group by salary having count(salary)= 15000;
+Empty set (0.00 sec)
+
+mysql> select Fname, salary from employee
+    -> group by Fname, salary having count(salary)= 15000;
+Empty set (0.00 sec)
+
+mysql> desc employee;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| SSN      | varchar(10) | YES  |     | NULL    |       |
+| Fname    | varchar(20) | YES  |     | NULL    |       |
+| Lname    | varchar(30) | YES  |     | NULL    |       |
+| Address  | varchar(40) | YES  |     | NULL    |       |
+| sex      | char(1)     | NO   |     | NULL    |       |
+| Salary   | int(38)     | YES  |     | NULL    |       |
+| Superssn | varchar(50) | YES  |     | NULL    |       |
+| Dno      | int(40)     | NO   | PRI | 0       |       |
+| BDate    | date        | YES  | UNI | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+9 rows in set (0.07 sec)
+
+mysql> select Dno, salary
+    -> group by Dno having count (DNo) = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by Dno having count (DNo) = 1' at line 2
+mysql> select Dno, salary
+    -> group by Dno having (DNo) = 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by Dno having (DNo) = 1' at line 2
+mysql> select Dno, salary
+    -> group by Dno
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by Dno' at line 2
+mysql> select Dno, salary
+    -> having salary >=15000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'having salary >=15000' at line 2
+
+mysql> cr
